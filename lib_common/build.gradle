@@ -1,0 +1,43 @@
+//****************************************
+//********* lib_common 的配置文件 **********
+//****************************************
+
+plugins {
+    alias(libs.plugins.library)
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.hilt)
+    id "kotlin-kapt"
+}
+
+apply from: '../base_lib.gradle'
+
+
+import com.fry.buildconfig.*
+
+android {
+
+    defaultConfig {
+        resValue "string", "BUGLY_APP_ID", SDKKeyConfig.BUGLY_APP_ID
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    resourcePrefix "common_"
+    namespace 'com.fry.androidbaseframemvvm.common'
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    api project(path: ':lib_base')
+
+    api DependencyConfig.JetPack.HiltCore
+
+    kapt DependencyConfig.GitHub.ARouteCompiler
+    kapt DependencyConfig.GitHub.EventBusAPT
+    kapt DependencyConfig.GitHub.AutoServiceAnnotations
+    kapt DependencyConfig.JetPack.HiltApt
+    kapt DependencyConfig.JetPack.LifecycleCompilerAPT
+}
