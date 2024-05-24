@@ -18,17 +18,43 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val mRepository: HomeRepository) : BaseViewModel() {
-
-    val data = MutableLiveData<String>()
-
+    val data = MutableLiveData<Object>()
     /**
      * 模拟获取数据
      */
+   /* fun getData() {
+        launchIO {
+            val a = mRepository.getData()
+            a.put("")
+               *//* .catch { Log.d("qqq", "getData: $it") }
+                .collect { data.postValue(it) }*//*
+        }
+    }*/
+
     fun getData() {
         launchIO {
-            mRepository.getData()
-                .catch { Log.d("qqq", "getData: $it") }
-                .collect { data.postValue(it) }
+           /* Log.d("qqq", "getData: ")
+            val a = mRepository.mApi.getHomeData()*/
+           /* mRepository.getData()
+                .catch { Log.d("catch", "getData: $it") }
+                .collect {Log.d("collect", "getData: $it")
+                data.postValue(it)
+                }*/
+            mRepository.getData1()
+                .catch { Log.d("catch", "getData: $it") }
+                .collect {Log.d("collect", "getData: $it")
+                    data.postValue(it)
+                }
+
         }
     }
 }
+data class Response(
+    val code: Int,
+    val result: Result,
+    val msg: String
+)
+
+data class Result(
+    val content: String
+)

@@ -28,11 +28,11 @@ class MainActivity : BaseActivity<HomeActivityMainBinding, HomeViewModel>() {
     }
 
     override fun initObserve() {
-        //observeLiveData(mViewModel.data, ::processData)
+        observeLiveData(mViewModel.data, ::processData)
     }
 
-    private fun processData(data: String) {
-        mBinding.vTvHello.text = data
+    private fun processData(data: Object) {
+        mBinding.vTvHello.text = data.toString()
         mBinding.vTvHello.setTextColor(Color.BLUE)
     }
 
